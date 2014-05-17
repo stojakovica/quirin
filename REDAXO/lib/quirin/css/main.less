@@ -1,0 +1,86 @@
+@white: #fff;
+@black: #000;
+@darkgrey: #888;
+@darkergrey: #555;
+
+@arial: Arial, sans-serif;
+
+@fontLight: 300;
+@fontNormal: 400;
+@fontMedium: 500;
+@fontBold: 700;
+
+* {
+    font-family: @arial;
+    color: @black;
+    font-size: 14px;
+}
+
+html, body {
+    min-height: 600px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+h1, h1 span.caps, .h1 {
+    font-weight: @fontMedium;
+    font-size: 30px;
+    margin-top: 0;
+}
+
+h2, h2 span.caps, .h2 {
+    font-weight: @fontNormal;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+h3, h3 span.caps, .h3 {
+    font-weight: @fontNormal;
+    font-size: 18px;
+}
+
+img {
+    border: none;
+}
+
+a:HOVER {
+    text-decoration: none;
+}
+
+#header {
+    position: relative;
+
+    #logo {
+        margin-left: 50px;
+
+        a {
+            font-size: 38px;
+            font-weight: @fontBold;
+            color: @darkgrey;
+        }
+    }
+
+    #navigationMain {
+        position: absolute;
+        top: 8px;
+        right: 50px;
+        list-style-type: none;
+        width: 330px;
+
+        li {
+            float: left;
+            margin-left: 10px;
+            text-align: right;
+
+            a {
+                text-transform: uppercase;
+                color: @darkgrey;
+            }
+
+            &.active a, a:hover {
+                color: @darkergrey;
+            }
+        }
+    }
+}
