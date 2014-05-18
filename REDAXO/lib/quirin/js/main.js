@@ -30,7 +30,26 @@ $(function() {
         });
     });
 
+    /* navigation text */
+    $('#navigationMain li a.text').click(getContent);
+
 });
+
+function getContent() {
+    $.ajax({
+        type: "GET",
+        async: false,
+        url: "index.php?article_id=9",
+        data: "getArticleData=1&artId="+$(this).data('artId'),
+        success: function(data){
+            $('#textContentContainer').empty();
+            $('#textContentContainer').html(data);
+            $('#textContentContainer').animate({
+            	height: 'toggle'
+            });
+        }
+    });
+}
 
 function filterContent(name) {
     if(!name) {
