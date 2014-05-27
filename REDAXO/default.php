@@ -84,13 +84,14 @@ shuffle($medias);
             $class = "";
             if ($lev1->getId() == $path1) $class = "active";
             ?>
-            <li class="<?php echo $class; ?>" ><a href="#" class="text" data-id="<?php $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
+            <li class="<?php echo $class; ?>" ><a href="#" class="text" data-id="<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
             <?php
         }
         ?>
         </ul>
-    </div>
-    <div id="textContentContainer">
+
+	    <div id="textContentContainer">
+	    </div>
     </div>
     <div class="freewallContainer" id="freewallContainer">
         <?php
@@ -133,7 +134,8 @@ shuffle($medias);
             );
             $actuallHeight = $heightSizes[array_rand($heightSizes)];
             ?>
-            <div class="cell <?php echo $filterClass; ?>" style="width:<?php echo $actuallWidth; ?>px; height:<?php echo $actuallHeight; ?>px; background: url('index.php?rex_img_type=freewallImage&rex_img_file=<?php echo $media->getFileName(); ?>') no-repeat center center;">
+            <div class="cell <?php echo $filterClass; ?>" style="width:<?php echo $actuallWidth; ?>px; height:<?php echo $actuallHeight; ?>px; background: url('index.php?rex_img_type=freewallImage&rex_img_file=<?php echo $media->getFileName(); ?>') no-repeat center center;"
+            	data-media-id="<?php echo $media->getId(); ?>">
                 <div class="descriptionWrapper">
                     <div class="description">
                         <?php echo $description; ?>
