@@ -7,7 +7,6 @@ $path1 = $path[1];
 $path2 = $path[2];
 $path3 = $path[3];
 
-
 $ssa = OOArticle::getSiteStartArticle();
 $article = OOArticle::getArticleById($this->getValue("article_id"));
 $isSSA = $ssa->getId() == $article->getId();
@@ -48,6 +47,7 @@ shuffle($medias);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="lib/vendor/twbs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="lib/vendor/slimbox/css/slimbox2.css" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo $libDir."/quirin/css/lionbars.css"?>" />
     <link rel="stylesheet" href="<?php echo $libDir."/quirin/css/hover-min.css"?>" />
     <link rel="stylesheet" href="<?php echo $libDir."/quirin/css/main.css"?>" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
@@ -56,11 +56,8 @@ shuffle($medias);
           <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
     <script src="lib/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="lib/vendor/slimbox/js/slimbox2.js"></script>
-    <script src="<?php echo $libDir."/quirin/js/jquery.easing.js"; ?>"></script>
-    <script src="<?php echo $libDir."/quirin/js/jquery.backstretch.min.js"; ?>"></script>
+    <script src="<?php echo $libDir."/quirin/js/jquery.lionbars.0.3.js"; ?>"></script>
     <script src="<?php echo $libDir."/quirin/js/freewall.js"; ?>"></script>
-    <script src="<?php echo $libDir."/quirin/js/jquery.nicescroll.min.js"; ?>"></script>
     <script src="<?php echo $libDir."/quirin/js/main.js"; ?>"></script>
 </head>
 <body>
@@ -93,58 +90,62 @@ shuffle($medias);
 	    <div id="textContentContainer">
 	    </div>
     </div>
-    <div class="freewallContainer" id="freewallContainer">
-        <?php
-        foreach($medias as $mediaFile) {
-            $filterClass = $mediaFile['filterClass'];
-            $media = OOMedia::getMediaByFileName($mediaFile['filename']);
-            if (!$media) {
-                continue;
-            }
+    <div id="container">
+	    <div class="freewallContainer" id="freewallContainer">
+	        <?php
+	        foreach($medias as $mediaFile) {
+	            $filterClass = $mediaFile['filterClass'];
+	            $media = OOMedia::getMediaByFileName($mediaFile['filename']);
+	            if (!$media) {
+	                continue;
+	            }
 
-            // Description
-            $mediaDesc = htmlspecialchars_decode($media->getDescription());
-            $mediaDesc = str_replace("<br />","",$mediaDesc);
-            $mediaDesc = OOAddon::isAvailable('textile')?rex_a79_textile($mediaDesc):$mediaDesc;
-            $mediaDesc = str_replace("###","&#x20;",$mediaDesc);
+	            // Title
+	            $title = $media->getTitle();
 
-            // related series images
-            $relatedImages = $media->getValue('med_series');
-            $relatedImages = array_filter(explode(',', $relatedImages));
+	            // Description
+	            $mediaDesc = htmlspecialchars_decode($media->getDescription());
+	            $mediaDesc = str_replace("<br />","",$mediaDesc);
+	            $mediaDesc = OOAddon::isAvailable('textile')?rex_a79_textile($mediaDesc):$mediaDesc;
+	            $mediaDesc = str_replace("###","&#x20;",$mediaDesc);
 
-            // random cell widths
-            $widthSizes = array(
-                300,
-                350,
-                400,
-                450,
-                500,
-                550,
-            );
-            $actuallWidth = $widthSizes[array_rand($widthSizes)];
+	            // related series images
+	            $relatedImages = $media->getValue('med_series');
+	            $relatedImages = array_filter(explode(',', $relatedImages));
 
-            // random cell widths
-            $heightSizes = array(
-                300,
-                350,
-                400,
-                450,
-                500,
-                550,
-            );
-            $actuallHeight = $heightSizes[array_rand($heightSizes)];
-            ?>
-            <div class="cell <?php echo $filterClass; ?>" style="width:<?php echo $actuallWidth; ?>px; height:<?php echo $actuallHeight; ?>px; background: url('index.php?rex_img_type=freewallImage&rex_img_file=<?php echo $media->getFileName(); ?>') no-repeat center center;"
-            	data-media-id="<?php echo $media->getId(); ?>">
-                <div class="descriptionWrapper">
-                    <div class="description">
-                        <?php echo $description; ?>
-                    </div>
-                </div>
-            </div>
-            <?php
-        }
-        ?>
+	            // random cell widths
+	            $widthSizes = array(
+	                200,
+	                250,
+	                300,
+	                350,
+	                400,
+	            );
+	            $actuallWidth = $widthSizes[array_rand($widthSizes)];
+
+	            // random cell widths
+	            $heightSizes = array(
+	                200,
+	                250,
+	                300,
+	                350,
+	                400,
+	            );
+	            $actuallHeight = $heightSizes[array_rand($heightSizes)];
+	            ?>
+	            <div class="cell <?php echo $filterClass; ?>" style="width:<?php echo $actuallWidth; ?>px; height:<?php echo $actuallHeight; ?>px; background: url('index.php?rex_img_type=freewallImage&rex_img_file=<?php echo $media->getFileName(); ?>') no-repeat center center;"
+	            	data-media-id="<?php echo $media->getId(); ?>">
+	                <div class="descriptionWrapper">
+	                    <div class="description">
+	                    	<h2><?php echo $title; ?></h2>
+	                        <?php echo $mediaDesc; ?>
+	                    </div>
+	                </div>
+	            </div>
+	            <?php
+	        }
+	        ?>
+	    </div>
     </div>
 </body>
 </html>

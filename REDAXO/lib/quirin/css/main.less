@@ -91,15 +91,112 @@ a:HOVER {
 
 #textContentContainer {
 	display: none;
+	text-align: center;
+
+	.par {
+		position: relative;
+		display: inline-block;
+		padding-top: 40px;
+		padding-bottom: 20px;
+
+		h1, h2, h3, span, p {
+			text-align: left;
+		}
+
+		> div {
+			float: left;
+			display: inline-block;
+
+			&.imgBig {
+				min-width: 255px;
+				text-align: center;
+			}
+
+			&.imgSmall {
+				width: 150px;
+
+				img {
+					margin-left: 15px;
+					margin-bottom: 20px;
+					cursor: pointer;
+				}
+			}
+		}
+
+		.close {
+			position: absolute;
+			right: -15px;
+			top: 0;
+		}
+	}
 }
 
-#freewallContainer {
+#container {
 	position: absolute;
 	width: 100%;
-	min-height: 400px;
-	overflow: hidden;
 
-	.cell {
-		cursor: pointer;
+	#freewallContainer {
+
+		.cell {
+			position: relative;
+			cursor: pointer;
+
+			.descriptionWrapper {
+				position: absolute;
+				left: 5px;
+				bottom: 5px;
+				opacity: 0;
+
+				div {
+					color: @white;
+
+					h2 {
+						margin: 0;
+					}
+
+					p, a, span {
+						margin-bottom: 0;
+						padding-bottom: 0;
+						color: @white;
+					}
+				}
+			}
+
+			&:hover {
+				.descriptionWrapper {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+
+#startseite {
+	width: 100%;
+	height: 100%;
+
+	td {
+		text-align: center;
+		vertical-align: middle;
+
+		a {
+			font-size: 350px;
+			color: @darkgrey;
+		}
+	}
+}
+
+.lb-h-scrollbar {
+	display: none;
+}
+
+.block {
+
+	> div {
+
+		&.imgLeft {
+			float: left;
+			margin-right: 20px;
+		}
 	}
 }
