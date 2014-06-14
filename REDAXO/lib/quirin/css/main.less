@@ -21,7 +21,6 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
-    overflow: hidden;
 }
 
 h1, h1 span.caps, .h1 {
@@ -70,7 +69,7 @@ a:HOVER {
         top: 8px;
         right: 50px;
         list-style-type: none;
-        width: 330px;
+        width: 359px;
 
         li {
             float: left;
@@ -80,10 +79,10 @@ a:HOVER {
             a {
                 text-transform: uppercase;
                 color: @darkgrey;
-            }
 
-            &.active a, a:hover {
-                color: @darkergrey;
+	            &.active, &:hover {
+	                color: @darkergrey;
+	            }
             }
         }
     }
@@ -134,10 +133,16 @@ a:HOVER {
 #container {
 	position: absolute;
 	width: 100%;
+	opacity: 0;
 
-	#freewallContainer {
+	.column {
+		float: left;
 
 		.cell {
+			img {
+				max-width: 100%;
+			}
+
 			position: relative;
 			cursor: pointer;
 
