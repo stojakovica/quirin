@@ -19,24 +19,39 @@ if ($_GET['getMediaData'] == 1) {
     $media = OOMedia::getMediaById($id);
     $serie = array_filter(explode(',', $media->getValue('med_series')));
 
-    $result = '<div class="par" style="height: 475px;">';
-    $result .= '<div class="imgBig">';
-    $result .= '<img src="index.php?rex_img_type=previewBig&rex_img_file='.$media->getFilename().'" />';
-    $result .= '</div>';
-    $result .= '<div class="imgSmall">';
-    $result .= '<img data-filename="'.$media->getFilename().'" src="index.php?rex_img_type=previewSmall&rex_img_file='.$media->getFilename().'" />';
-    $i=1;
+    $result = '<div id="slideshowWrapper">';
+    $result .= 	'<div class="rightArrow">';
+    $result .= 		'<div class="arrowContent" style="display:none">';
+    $result .= 			'<img src="files/pfeil_1.png" />';
+    $result .= 		'</div>';
+    $result .= 	'</div>';
+    $result .= 	'<div class="leftArrow">';
+    $result .= 		'<div class="arrowContent" style="display:none">';
+    $result .= 			'<img src="files/pfeil_2.png" />';
+    $result .= 		'</div>';
+    $result .= 	'</div>';
+    $result .= 	'<div class="closeSlideshow">';
+    $result .= 	'X';
+    $result .= 	'</div>';
+    $result .= 	'<div class="left">';
+    $result .= 		'<div class="imgBig">';
+    $result .= 			'<img src="index.php?rex_img_type=previewBig&rex_img_file='.$media->getFilename().'" />';
+    $result .= 		'</div>';
+    $result .= 		'<div class="imgSmall">';
     foreach($serie as $img) {
-    	if($i%4 == 0) {
-    		$result .= '</div><div class="imgSmall">';
-    	}
-	    $result .= '<img data-filename="'.$img.'" src="index.php?rex_img_type=previewSmall&rex_img_file='.$img.'" />';
-    	$i++;
+	    $result .= 			'<img data-filename="'.$img.'" src="index.php?rex_img_type=previewSmall&rex_img_file='.$img.'" />';
     }
-    $result .= '</div>';
-    $result .= '<div class="close">';
-    $result .= 'X';
-    $result .= '</div>';
+    $result .= 		'</div>';
+    $result .= 	'</div>';
+    $result .= 	'<div class="right">';
+    $result .= 		'<div class="rightContent">';
+					    $textile = htmlspecialchars_decode($media->getDescription());
+					    $textile = str_replace("<br />","",$textile);
+					    $textile = rex_a79_textile($textile);
+					    $textile = str_replace("###","&#x20;",$textile);
+    $result .= 			$textile;
+    $result .= 		'</div>';
+    $result .= 	'</div>';
     $result .= '</div>';
 
     echo $result;

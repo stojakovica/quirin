@@ -1,6 +1,13 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
 
+function cmp($a, $b) {
+	if ($a['createDate'] == $b['createDate']) {
+		return 0;
+	}
+	return ($a['createDate'] > $b['createDate']) ? -1 : 1;
+}
+
 // global vars
 $path = explode("|", $this->getValue("path") . $this->getValue("article_id") . "|");
 $path1 = $path[1];
@@ -25,15 +32,16 @@ foreach (OOCategory::getRootCategories(true) as $lev1) {
 
     $i = 0;
     foreach($mediaFiles as $mf) {
-        if($i > 5) continue;
+    	$media = OOMedia::getMediaByFilename($mf);
         $medias[] = array(
                 "filterClass" => $filterClass,
                 "filename" => $mf,
+                "createDate" => $media->getCreateDate(),
         );
         $i++;
     }
 }
-shuffle($medias);
+usort($medias, "cmp");
 
 $columnCount = rand(3, 5);
 $columnWidth = 100/$columnCount;
@@ -99,6 +107,11 @@ $modulo = ceil(count($medias)/$columnCount);
 	            <li class="<?php echo $class; ?>" ><a href="#" class="filter" data-filter-class="filter<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
 	            <?php
 	        }
+	        ?>
+        </ul>
+
+        <ul id="navigationService" class="clearfix">
+	        <?php
 	        foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
 	            $class = "";
 	            if ($lev1->getId() == $path1) $class = "active";

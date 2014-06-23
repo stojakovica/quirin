@@ -64,10 +64,32 @@ shuffle($medias);
     <script src="<?php echo $libDir."/quirin/js/main.js"; ?>"></script>
 </head>
 <body>
+	<div id="header">
+        <div id="logo">
+            <a href="<?php echo $ssa->getUrl(); ?>">
+                QUIRIN LEPPERT
+            </a>
+        </div>
+
+        <ul id="navigationService" class="clearfix">
+        	<?php
+	        foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
+	            $class = "";
+	            if ($lev1->getId() == $path1) $class = "active";
+	            ?>
+	            <li class="<?php echo $class; ?>" ><a href="#" class="text" data-id="<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
+	            <?php
+	        }
+	        ?>
+        </ul>
+
+	    <div id="textContentContainer">
+	    </div>
+    </div>
 	<table id="startseite">
 		<tr>
 			<td>
-				<a href="<?php echo rex_getUrl(1); ?>">Q</a>
+				<a href="<?php echo rex_getUrl(1); ?>"><img src="files/q.png" /></a>
 			</td>
 		</tr>
 	</table>

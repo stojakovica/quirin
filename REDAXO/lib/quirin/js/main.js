@@ -1,15 +1,17 @@
 $(function() {
-	$('#container').imagesLoaded( function() {
-		$('#container').animate({
-			'opacity': '1'
+	if($('#container').length > 0) {
+		$('#container').imagesLoaded( function() {
+			$('#container').animate({
+				'opacity': '1'
+			});
 		});
-	});
+	}
 
 	setCellMargin();
 	$(window).resize(setCellMargin);
 
     /* navigation text */
-    $('#navigationMain li a.text').click(getContent);
+    $('#navigationService li a.text').click(getContent);
 
     /* navigation filter */
     $('#navigationMain li a.filter').click(filterContent);
@@ -30,10 +32,14 @@ function setCellMargin() {
 
 function changeImgPrev() {
 	var img = $(this).data('filename');
-	var imgBig = $('.par .imgBig');
+	var imgBig = $('.imgBig');
 	imgBig.children('img').fadeOut('slow', function() {
-		imgBig.html('<img style="display:none;" src="index.php?rex_img_type=previewBig&rex_img_file='+img+'" />');
-		imgBig.children('img').fadeIn('slow');
+		imgBig.html('<img src="index.php?rex_img_type=previewBig&rex_img_file='+img+'" />');
+		imgBig.imagesLoaded( function() {
+			imgBig.children('img').animate({
+				'opacity': '1'
+			});
+		});
 	});
 }
 
@@ -75,6 +81,12 @@ function closeTextContainer() {
 	});
 }
 
+function closeSlideshow() {
+	$('#slideshowWrapper').fadeOut('slow', function() {
+		$('#slideshowWrapper').remove();
+	});
+}
+
 function changeTextContainer(data, id) {
    $('#textContentContainer').children('.par').fadeOut(250, function() {
 	   $('#textContentContainer').empty();
@@ -83,7 +95,6 @@ function changeTextContainer(data, id) {
 	   $('#textContentContainer').addClass('class'+id);
 	   $('#textContentContainer').children('.par').fadeIn(250, function() {
 		   $('#textContentContainer .par .close').click(closeTextContainer);
-		   $('.par .imgSmall img').click(changeImgPrev);
 	   });
    });
 }
@@ -130,14 +141,16 @@ function getMediaContent() {
 		url: "index.php?article_id=9",
 		data: "getMediaData=1&artId="+id,
 		success: function(data){
-			if($('#textContentContainer').children('.par').length > 0) {
-				changeTextContainer(data, id);
-			}
-			else {
-				fillTextContainer(data, id);
-			}
-		    $('#textContentContainer .par .close').click(closeTextContainer);
-		    $('.par .imgSmall img').click(changeImgPrev);
+			$('body').append(data);
+			$('#slideshowWrapper').fadeIn('slow');
+		    $('.closeSlideshow').click(closeSlideshow);
+		    $('.imgSmall img').click(changeImgPrev);
+
+		    $('#slideshowWrapper').imagesLoaded( function() {
+				$('#slideshowWrapper img').animate({
+					'opacity': '1'
+				});
+			});
 		}
 	});
 
