@@ -15,8 +15,10 @@ $path2 = $path[2];
 $path3 = $path[3];
 
 $ssa = OOArticle::getSiteStartArticle();
+$homeSite = OOArticle::getArticleById(1);
 $article = OOArticle::getArticleById($this->getValue("article_id"));
 $isSSA = $ssa->getId() == $article->getId();
+$isHomeSite = $homeSite->getId() == $article->getId();
 
 // add less support
 $libDir = $REX['HTDOCS_PATH'] . "lib";
@@ -25,9 +27,28 @@ $less = new lessc();
 $less->checkedCompile($libDir . "/quirin/css/main.less", $libDir . "/quirin/css/main.css");
 
 // prepare content images
-foreach (OOCategory::getRootCategories(true) as $lev1) {
-    $filterClass = 'filter'.$lev1->getId();
-    $mediaFiles = $lev1->getValue('art_freewall_images');
+$medias = array();
+if($isHomeSite) {
+	foreach (OOCategory::getRootCategories(true) as $lev1) {
+	    $filterClass = 'filter'.$lev1->getId();
+	    $mediaFiles = $lev1->getValue('art_freewall_images');
+	    $mediaFiles = array_filter(explode(',', $mediaFiles));
+
+	    $i = 0;
+	    foreach($mediaFiles as $mf) {
+	    	$media = OOMedia::getMediaByFilename($mf);
+	        $medias[] = array(
+	                "filterClass" => $filterClass,
+	                "filename" => $mf,
+	                "createDate" => $media->getCreateDate(),
+	        );
+	        $i++;
+	    }
+	}
+}
+else {
+    $filterClass = 'filter'.$article->getId();
+    $mediaFiles = $article->getValue('art_freewall_images');
     $mediaFiles = array_filter(explode(',', $mediaFiles));
 
     $i = 0;
@@ -41,9 +62,13 @@ foreach (OOCategory::getRootCategories(true) as $lev1) {
         $i++;
     }
 }
+
 usort($medias, "cmp");
 
 $columnCount = rand(3, 5);
+if($_GET['columns']) {
+	$columnCount = $_GET['columns'];
+}
 $columnWidth = 100/$columnCount;
 $columnMargin = (($columnCount-1)/$columnCount)/2;
 $columnWidth = $columnWidth - $columnMargin;
@@ -98,13 +123,19 @@ $modulo = ceil(count($medias)/$columnCount);
         </div>
 
         <ul id="navigationMain" class="clearfix">
-        	<li><a href="#" class="filter active" data-filter-class="all">All</a></li>
+        	<?php
+            $class = "";
+        	if($isHomeSite) {
+	            $class = "active";
+			}
+			?>
+        	<li><a href="<?php echo rex_getUrl($homeSite->getId(), 0, array('columns'=>$columnCount)); ?>" class="filter <?php echo $class; ?>" data-filter-class="all">All</a></li>
 	        <?php
 	        foreach (OOCategory::getRootCategories(true) as $lev1) {
 	            $class = "";
 	            if ($lev1->getId() == $path1) $class = "active";
 	            ?>
-	            <li class="<?php echo $class; ?>" ><a href="#" class="filter" data-filter-class="filter<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
+	            <li><a href="<?php echo rex_getUrl($lev1->getId(), 0, array('columns'=>$columnCount)); ?>" class="filter <?php echo $class; ?>" data-filter-class="filter<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
 	            <?php
 	        }
 	        ?>

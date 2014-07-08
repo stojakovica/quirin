@@ -3,7 +3,7 @@ $(function() {
 		$('#container').imagesLoaded( function() {
 			$('#container').animate({
 				'opacity': '1'
-			});
+			}, 250);
 		});
 	}
 
@@ -158,16 +158,14 @@ function getMediaContent() {
 }
 
 function filterContent() {
+	var link = $(this);
     var name = $(this).attr('data-filter-class');
     $('#header #navigationMain li a').removeClass('active');
     $(this).addClass('active');
 
-    $.when( $('.cell').fadeOut("slow") ).done(function() {
-        $('.cell').each(function() {
-        	if($(this).hasClass(name) || name == "all") {
-        		$(this).fadeIn("slow");
-        	}
-        });
+    $.when( $('.cell').fadeOut(250) ).done(function() {
+    	window.location = link.attr('href');
+    	return true;
     });
 
 
