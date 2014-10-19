@@ -2,6 +2,8 @@
 ob_clean();
 header('Content-Type: text/html; charset=utf-8');
 if($_GET['artId'] != "") $id = $_GET['artId'];
+if($_GET['nextId'] != "") $nextId = $_GET['nextId'];
+if($_GET['prevId'] != "") $prevId = $_GET['prevId'];
 
 if ($_GET['getArticleData'] == 1) {
     $result = '<div class="par" style="width:1170px;">';
@@ -21,13 +23,13 @@ if ($_GET['getMediaData'] == 1) {
 
     $result = '<div id="slideshowWrapper">';
     $result .= 	'<div class="rightArrow">';
-    $result .= 		'<div class="arrowContent" style="display:none">';
-    $result .= 			'<img src="files/pfeil_1.png" />';
+    $result .= 		'<div class="arrowContent">';
+    $result .= 			'<img data-media-id="'.$nextId.'" src="files/pfeil_1.png" />';
     $result .= 		'</div>';
     $result .= 	'</div>';
     $result .= 	'<div class="leftArrow">';
-    $result .= 		'<div class="arrowContent" style="display:none">';
-    $result .= 			'<img src="files/pfeil_2.png" />';
+    $result .= 		'<div class="arrowContent">';
+    $result .= 			'<img data-media-id="'.$prevId.'" src="files/pfeil_2.png" />';
     $result .= 		'</div>';
     $result .= 	'</div>';
     $result .= 	'<div class="closeSlideshow">';

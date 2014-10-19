@@ -1,0 +1,240 @@
+* {
+  font-family: Arial, sans-serif;
+  color: #000;
+  font-size: 14px;
+}
+html,
+body {
+  min-height: 600px;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+h1,
+h1 span.caps,
+.h1 {
+  font-weight: 500;
+  font-size: 30px;
+  margin-top: 0;
+}
+h2,
+h2 span.caps,
+.h2 {
+  font-weight: 400;
+  font-size: 22px;
+  margin-bottom: 15px;
+}
+h3,
+h3 span.caps,
+.h3 {
+  font-weight: 400;
+  font-size: 18px;
+}
+img {
+  border: none;
+}
+a:HOVER {
+  text-decoration: none;
+}
+#header {
+  position: fixed;
+  z-index: 10;
+  background: #fff;
+  width: 100%;
+}
+#header #logo {
+  margin-left: 50px;
+}
+#header #logo a {
+  font-size: 38px;
+  font-weight: 700;
+  color: #888;
+}
+#header #navigationMain,
+#header #navigationService {
+  position: absolute;
+  top: 8px;
+  right: 50px;
+  list-style-type: none;
+  width: 463px;
+}
+#header #navigationMain li,
+#header #navigationService li {
+  float: left;
+  margin-left: 10px;
+  text-align: right;
+}
+#header #navigationMain li a,
+#header #navigationService li a {
+  text-transform: uppercase;
+  color: #888;
+}
+#header #navigationMain li a.active,
+#header #navigationMain li a:hover,
+#header #navigationService li a.active,
+#header #navigationService li a:hover {
+  color: #555;
+}
+#header #navigationService {
+  width: 161px;
+  top: 28px;
+}
+#textContentContainer {
+  display: none;
+  text-align: center;
+}
+#textContentContainer .par {
+  position: relative;
+  display: inline-block;
+  padding-top: 40px;
+  padding-bottom: 20px;
+}
+#textContentContainer .par h1,
+#textContentContainer .par h2,
+#textContentContainer .par h3,
+#textContentContainer .par span,
+#textContentContainer .par p {
+  text-align: left;
+}
+#textContentContainer .par > div {
+  float: left;
+  display: inline-block;
+}
+#textContentContainer .par > div.imgBig {
+  min-width: 255px;
+  text-align: center;
+}
+#textContentContainer .par > div.imgSmall {
+  width: 150px;
+}
+#textContentContainer .par > div.imgSmall img {
+  margin-left: 15px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+#textContentContainer .par .close {
+  position: absolute;
+  right: -15px;
+  top: 0;
+}
+#container {
+  position: absolute;
+  width: 100%;
+  opacity: 0;
+  margin-top: 54px;
+}
+#container .column {
+  float: left;
+}
+#container .column .cell {
+  position: relative;
+  cursor: pointer;
+}
+#container .column .cell img {
+  max-width: 100%;
+}
+#container .column .cell .descriptionWrapper {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+  opacity: 0;
+}
+#container .column .cell .descriptionWrapper div {
+  color: #fff;
+}
+#container .column .cell .descriptionWrapper div h2 {
+  margin: 0;
+}
+#container .column .cell .descriptionWrapper div p,
+#container .column .cell .descriptionWrapper div a,
+#container .column .cell .descriptionWrapper div span {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  color: #fff;
+}
+#container .column .cell:hover .descriptionWrapper {
+  opacity: 1;
+}
+#startseite {
+  width: 100%;
+  height: 100%;
+}
+#startseite td {
+  text-align: center;
+  vertical-align: middle;
+}
+#startseite td a {
+  font-size: 350px;
+  color: #888;
+}
+.lb-h-scrollbar {
+  display: none;
+}
+.block > div.imgLeft {
+  float: left;
+  margin-right: 20px;
+}
+#slideshowWrapper {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 1%;
+  background: rgba(255,255,255,0.9);
+  z-index: 11;
+}
+#slideshowWrapper img {
+  opacity: 0;
+}
+#slideshowWrapper .rightArrow,
+#slideshowWrapper .leftArrow {
+  position: absolute;
+  display: table;
+  right: 20px;
+  top: 0;
+  height: 100%;
+}
+#slideshowWrapper .rightArrow .arrowContent,
+#slideshowWrapper .leftArrow .arrowContent {
+  display: table-cell;
+  vertical-align: middle;
+}
+#slideshowWrapper .rightArrow .arrowContent img,
+#slideshowWrapper .leftArrow .arrowContent img {
+  cursor: pointer;
+}
+#slideshowWrapper .leftArrow {
+  right: auto;
+  left: 20px;
+}
+#slideshowWrapper .closeSlideshow {
+  position: absolute;
+  top: 2%;
+  right: 50px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: #888;
+}
+#slideshowWrapper .description {
+  text-align: center;
+  font-weight: bold;
+  color: #888;
+}
+#slideshowWrapper .imgBig {
+  text-align: center;
+  height: 80%;
+}
+#slideshowWrapper .imgBig img {
+  max-height: 100%;
+}
+#slideshowWrapper .imgSmall {
+  text-align: center;
+  margin-top: 10px;
+}
+#slideshowWrapper .imgSmall img {
+  margin: 10px;
+  cursor: pointer;
+}

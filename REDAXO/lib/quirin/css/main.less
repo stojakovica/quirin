@@ -1,5 +1,6 @@
 @white: #fff;
 @black: #000;
+@lightgrey: #ccc;
 @darkgrey: #888;
 @darkergrey: #555;
 
@@ -9,6 +10,12 @@
 @fontNormal: 400;
 @fontMedium: 500;
 @fontBold: 700;
+
+.rounded(@radius: 2px) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
 
 * {
     font-family: @arial;
@@ -21,6 +28,7 @@ html, body {
     height: 100%;
     padding: 0;
     margin: 0;
+    overflow-x: hidden;
 }
 
 h1, h1 span.caps, .h1 {
@@ -81,7 +89,8 @@ a:HOVER {
                 color: @darkgrey;
 
 	            &.active, &:hover {
-	                color: @darkergrey;
+	                color: @black;
+                    text-decoration: underline;
 	            }
             }
         }
@@ -135,70 +144,55 @@ a:HOVER {
 	}
 }
 
-#container {
-	position: absolute;
-	width: 100%;
-	opacity: 0;
-	margin-top: 54px;
+.container {
+	padding-top: 54px;
+    margin: 0 auto;
+    width: 100%;
 
-	.column {
-		float: left;
+    .cell {
+        width: 220px;
+        padding: 10px;
+        float: left;
 
-		.cell {
-			img {
-				max-width: 100%;
-			}
+        img {
+            max-width: 100%;
+            text-align: center;
+        }
 
-			position: relative;
-			cursor: pointer;
+        .descriptionWrapper {
+            position: absolute;
+            left: 15px;
+            bottom: 13px;
+            opacity: 0;
 
-			.descriptionWrapper {
-				position: absolute;
-				left: 5px;
-				bottom: 5px;
-				opacity: 0;
+            div {
+                color: @white;
 
-				div {
-					color: @white;
+                h2 {
+                    margin: 0;
+                }
 
-					h2 {
-						margin: 0;
-					}
+                p, a, span {
+                    margin-bottom: 0;
+                    padding-bottom: 0;
+                    color: @white;
+                }
+            }
+        }
 
-					p, a, span {
-						margin-bottom: 0;
-						padding-bottom: 0;
-						color: @white;
-					}
-				}
-			}
-
-			&:hover {
-				.descriptionWrapper {
-					opacity: 1;
-				}
-			}
-		}
-	}
+        &:hover {
+            .descriptionWrapper {
+                opacity: 1;
+            }
+        }
+    }
 }
 
-#startseite {
-	width: 100%;
-	height: 100%;
-
-	td {
-		text-align: center;
-		vertical-align: middle;
-
-		a {
-			font-size: 350px;
-			color: @darkgrey;
-		}
-	}
-}
-
-.lb-h-scrollbar {
-	display: none;
+.containerDetail {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    width: 100%;
+    height: 100%;
 }
 
 .block {
@@ -212,71 +206,77 @@ a:HOVER {
 	}
 }
 
-#slideshowWrapper {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	padding-top: 1%;
-	background: rgba(255,255,255,0.9);
-	z-index: 11;
+.rightArrow, .leftArrow {
+    position: absolute;
+    display: table;
+    right: 20px;
+    top: 0;
+    height: 100%;
 
-	img {
-		opacity: 0;
-	}
+    .arrowContent {
+        display: table-cell;
+        vertical-align: middle;
 
-	.rightArrow, .leftArrow {
-		position: absolute;
-		display: table;
-		right: 20px;
-		top: 0;
-		height: 100%;
+        img {
+            cursor: pointer;
+        }
+    }
+}
 
-		.arrowContent {
-			display: table-cell;
-			vertical-align: middle;
-		}
-	}
+.leftArrow {
+    right: auto;
+    left: 20px;
+}
 
-	.leftArrow {
-		right: auto;
-		left: 20px;
-	}
+.imgNav {
+    position: absolute;
+    bottom: 45px;
+    text-align: center;
+    width: 100%;
 
-	.closeSlideshow {
-		position: absolute;
-		top: 2%;
-		right: 50px;
-		cursor: pointer;
-		font-size: 24px;
-		font-weight: bold;
-		color: @darkgrey;
-	}
+    .dot {
+        display: inline-block;
+        margin: 0 2px;
+        background: @lightgrey;
+        width: 5px;
+        height: 5px;
+        .rounded(3px);
+    }
+}
 
-	.description {
-		text-align: center;
-		font-weight: bold;
-		color: @darkgrey;
-	}
+.closeSlideshow {
+    position: absolute;
+    top: 2%;
+    right: 50px;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: bold;
+    color: @darkgrey;
+}
 
-	.imgBig {
-		text-align: center;
-		height: 80%;
+.containerDetail .description {
+    position: absolute;
+    font-weight: bold;
+    color: #888;
+    left: 100px;
+    width: 400px;
+    height: 100%;
+    top: 0;
+    padding-top: 100px;
+    padding-bottom: 100px;
+    background: rgba(255,255,255,0.8);
+}
 
-		img {
-			max-height: 100%;
-		}
-	}
+.imgBig {
+    text-align: center;
+    height: 100%;
 
-	.imgSmall {
-		text-align: center;
-		margin-top: 10px;
+    img {
+        max-height: 100%;
+    }
+}
 
-		img {
-			margin: 10px;
-			cursor: pointer;
-		}
-	}
+.mCSB_scrollTools {
+    z-index: 100000;
+    margin: 15px 0;
 }
