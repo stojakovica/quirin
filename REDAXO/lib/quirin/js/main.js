@@ -5,40 +5,75 @@ $(function() {
     /* navigation filter */
     $('#navigationMain li a.filter').click(filterContent);
 
-    var $container = $('#containerMasonry');
-    if($container.length) {
+    var $containerMasonry = $('#containerMasonry');
+    if($containerMasonry.length) {
         $('body').mCustomScrollbar({
             scrollInertia: 100
         });
     }
-    $container.imagesLoaded(function(){
-        $container.masonry({
+    $containerMasonry.imagesLoaded(function(){
+        $containerMasonry.masonry({
             itemSelector: '.cell',
             isAnimated: true,
             isFitWidth: true
         });
     });
 
-    var options = {
-        $BulletNavigatorOptions: {
-            $Class: $JssorBulletNavigator$,
-            $ChanceToShow: 2
-        }
-    };
-    var jssor_slider1 = new $JssorSlider$('slider1_container', options);
+    var $container = $('.container');
+    $container.imagesLoaded(function() {
+        $container.animate({
+            "opacity": "1"
+        });
+    });
+
+    /* Detail - Change image */
+    $('.leftArrow .arrowContent img').click(function() {
+        changeImgDetail("", "left");
+    });
+    $('.rightArrow .arrowContent img').click(function() {
+        changeImgDetail("", "right");
+    });
+    $('.imgNav .dot').click(function() {
+        var filename = $(this).data("filename");
+        changeImgDetail(filename, 0);
+    });
 });
 
-function changeImgPrev() {
-	var img = $(this).data('filename');
-	var imgBig = $('.imgBig');
-	imgBig.children('img').fadeOut('slow', function() {
-		imgBig.html('<img src="index.php?rex_img_type=previewBig&rex_img_file='+img+'" />');
-		imgBig.imagesLoaded( function() {
-			imgBig.children('img').animate({
-				'opacity': '1'
-			});
-		});
-	});
+function changeImgDetail(filename, direction) {
+    $activeImg = $('.imgBig .active');
+    if(filename != "") {
+        $nextImg = $('#'+filename);
+    }
+    else {
+        switch (direction) {
+            case "left":
+                $nextImg = $activeImg.prev();
+                if($nextImg.length == 0) {
+                    $nextImg = $('.imgBig img').last();
+                }
+                break;
+            case "right":
+                $nextImg = $activeImg.next();
+                if($nextImg.length == 0) {
+                    $nextImg = $('.imgBig img').first();
+                }
+                break;
+        }
+    }
+
+    $activeImg.fadeOut( "slow", function() {
+        $(this).removeClass('active');
+        $nextImg.fadeIn("slow");
+        $nextImg.addClass('active');
+        setActiveImgNavDot();
+    });
+}
+
+function setActiveImgNavDot() {
+    var activeImg = $('.imgBig .active').attr('id');
+    
+    $('.imgNav .dot').removeClass('active');
+    $('.imgNav .'+activeImg).addClass('active');
 }
 
 function closeTextContainer() {
@@ -46,12 +81,6 @@ function closeTextContainer() {
 		height: 'toggle'
 	}, 300, function() {
 		$('#textContentContainer').empty();
-	});
-}
-
-function closeSlideshow() {
-	$('#slideshowWrapper').fadeOut(250, function() {
-		$('#slideshowWrapper').remove();
 	});
 }
 
@@ -100,50 +129,6 @@ function getContent() {
     return false;
 }
 
-function getMediaContent(mediaId, nextId, prevId) {
-	var id = mediaId;
-
-	$.ajax({
-		type: "GET",
-		async: false,
-		url: "index.php?article_id=9",
-		data: "getMediaData=1&artId="+id+"&nextId="+nextId+"&prevId="+prevId,
-		success: function(data){
-			$('body').append(data);
-			$('#slideshowWrapper').fadeIn(300);
-		    $('.closeSlideshow').click(closeSlideshow);
-		    $('.imgSmall img').click(changeImgPrev);
-		    $('.arrowContent img').click(changeMediaContent);
-
-		    $('#slideshowWrapper').imagesLoaded( function() {
-				$('#slideshowWrapper img').animate({
-					'opacity': '1'
-				}, 250);
-			});
-		}
-	});
-
-	return false;
-}
-
-function changeMediaContent() {
-	var id = $(this).data('media-id');
-	var nextId = 0;
-	var prevId = 0;
-
-	$('.cell').each(function() {
-		if($(this).data('media-id') == id) {
-			nextId = $(this).data('next-media');
-			prevId = $(this).data('prev-media');
-		}
-	});
-
-	$('#slideshowWrapper').fadeOut(250, function() {
-		$('#slideshowWrapper').remove();
-		getMediaContent(id, nextId, prevId);
-	});
-}
-
 function filterContent() {
 	var link = $(this);
     var name = $(this).attr('data-filter-class');
@@ -154,7 +139,6 @@ function filterContent() {
     	window.location = link.attr('href');
     	return true;
     });
-
 
     return false;
 }

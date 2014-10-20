@@ -35,11 +35,28 @@ REX_TEMPLATE[5]
     <?php } ?>
 
     <div class="imgBig">
-        <img src="index.php?rex_img_type=previewBig&rex_img_file=<?php echo $imgBig; ?>" />
+        <?php
+        $imgArr = explode('.', $imgBig);
+        $imgBigId = $imgArr[0];
+        ?>
+        <img id="<?php echo $imgBigId; ?>" class="active" src="index.php?rex_img_type=previewBig&rex_img_file=<?php echo $imgBig; ?>" />
+
+        <?php
+        foreach($serie as $k=>$img) {
+            $imgId = "media".$k;
+            ?>
+            <img id="<?php echo $imgId; ?>" src="index.php?rex_img_type=previewBig&rex_img_file=<?php echo $img; ?>" />
+            <?php
+        } ?>
     </div>
+
     <div class="imgNav">
-        <?php foreach($serie as $img) { ?>
-            <div class="dot" data-filename="<?php echo $img; ?>"></div>
+        <div class="dot active <?php echo $imgBigId; ?>" data-filename="<?php echo $imgBigId; ?>"></div>
+
+        <?php foreach($serie as $k=>$img) {
+            $imgId = "media".$k;
+            ?>
+            <div class="dot <?php echo $imgId; ?>" data-filename="<?php echo $imgId; ?>"></div>
         <?php } ?>
     </div>
 </div>
