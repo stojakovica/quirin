@@ -71,7 +71,7 @@ function changeImgDetail(filename, direction) {
 
 function setActiveImgNavDot() {
     var activeImg = $('.imgBig .active').attr('id');
-    
+
     $('.imgNav .dot').removeClass('active');
     $('.imgNav .'+activeImg).addClass('active');
 }

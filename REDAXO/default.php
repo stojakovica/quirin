@@ -87,4 +87,5 @@ foreach($medias as $k=>$mediaFile) {
 }
 ?>
 </div>
+<div class="marginBottom"></div>
 REX_TEMPLATE[6]
