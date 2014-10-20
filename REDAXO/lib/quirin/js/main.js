@@ -14,17 +14,16 @@ $(function() {
     $containerMasonry.imagesLoaded(function(){
         $containerMasonry.masonry({
             itemSelector: '.cell',
-            isAnimated: true,
-            isFitWidth: true
+            isAnimated: true
         });
     });
 
-    var $container = $('.container');
-    $container.imagesLoaded(function() {
-        $container.animate({
-            "opacity": "1"
-        });
-    });
+    //var $container = $('.container');
+    //$container.imagesLoaded(function() {
+    //    $container.animate({
+    //        "opacity": "1"
+    //    });
+    //});
 
     /* Detail - Change image */
     $('.leftArrow .arrowContent img').click(function() {
