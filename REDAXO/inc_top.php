@@ -87,6 +87,52 @@ if($_GET['cat']) {
 	        ?>
         </ul>
 
-	    <div id="textContentContainer">
+        <div id="navigationMainResp">
+            <div class="logo">
+                <a href="<?php echo $ssa->getUrl(); ?>">
+                    QUIRIN LEPPERT
+                </a>
+            </div>
+
+            <div class="headWrapper">
+                <div class="head">
+                    <div class="icon-balken"></div>
+                    <div class="icon-balken"></div>
+                    <div class="icon-balken"></div>
+                </div>
+            </div>
+            <div class="list">
+                <ul id="navigationResponsive">
+                    <?php
+                    $class = "";
+                    if($isSSA) {
+                        $class = "active";
+                    }
+                    /* Navigation Main */
+                    ?>
+                    <li><a href="<?php $ssa->getUrl(); ?>" class="<?php echo $class; ?>" data-filter-class="all">All</a></li>
+                    <?php
+                    foreach (OOCategory::getRootCategories(true) as $lev1) {
+                        $class = "";
+                        if ($lev1->getId() == $path1 || $lev1->getId() == $activeFilterCat) $class = "active";
+                        ?>
+                        <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
+                    <?php
+                    }
+
+                    /* Navigation Service */
+                    foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
+                        $class = "";
+                        if ($lev1->getId() == $path1) $class = "active";
+                        ?>
+                        <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
+                    <?php
+                    }
+                    ?>
+                </ul>
+            </div>
+        </div>
+
+	    <div id="textContentContainer" class="hidden-xs">
 	    </div>
     </div>

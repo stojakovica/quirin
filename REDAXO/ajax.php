@@ -6,7 +6,7 @@ if($_GET['nextId'] != "") $nextId = $_GET['nextId'];
 if($_GET['prevId'] != "") $prevId = $_GET['prevId'];
 
 if ($_GET['getArticleData'] == 1) {
-    $result = '<div class="par" style="width:1170px;">';
+    $result = '<div class="container par">';
     $article = new article($id);
     $result .= $article->getArticle(1);
     $result .= '<div class="close">';

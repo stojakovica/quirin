@@ -1,8 +1,7 @@
 @white: #fff;
-@black: #000;
-@lightgrey: #ccc;
-@darkgrey: #888;
-@darkergrey: #555;
+@petrolium: #0f1b28;
+@petroliumLight: #65717f;
+@green: #677372;
 
 @arial: Arial, sans-serif;
 
@@ -19,7 +18,7 @@
 
 * {
     font-family: @arial;
-    color: @black;
+    color: @white;
     font-size: 14px;
 }
 
@@ -29,23 +28,27 @@ html, body {
     padding: 0;
     margin: 0;
     overflow-x: hidden;
+    background: @petrolium;
 }
 
 h1, h1 span.caps, .h1 {
     font-weight: @fontMedium;
     font-size: 30px;
     margin-top: 0;
+    color: @green;
 }
 
 h2, h2 span.caps, .h2 {
     font-weight: @fontNormal;
     font-size: 22px;
     margin-bottom: 15px;
+    color: @green;
 }
 
 h3, h3 span.caps, .h3 {
     font-weight: @fontNormal;
     font-size: 18px;
+    color: @green;
 }
 
 img {
@@ -58,9 +61,10 @@ a:HOVER {
 
 #header {
     position: fixed;
-    z-index: 10;
-    background: @white;
+    z-index: 1000000;
+    background: @petrolium;
     width: 100%;
+    border-bottom: 1px solid @white;
 
     #logo {
         margin-left: 50px;
@@ -68,7 +72,7 @@ a:HOVER {
         a {
             font-size: 38px;
             font-weight: @fontBold;
-            color: @darkgrey;
+            color: @white;
         }
     }
 
@@ -86,10 +90,10 @@ a:HOVER {
 
             a {
                 text-transform: uppercase;
-                color: @darkgrey;
+                color: @petroliumLight;
 
 	            &.active, &:hover {
-	                color: @black;
+	                color: @white;
                     text-decoration: underline;
 	            }
             }
@@ -140,23 +144,24 @@ a:HOVER {
 			position: absolute;
 			right: -15px;
 			top: 0;
+            color: @white;
+            opacity: 0.8;
 		}
 	}
 }
 
-.container {
+.containerMasonry {
 	padding-top: 54px;
     width: 100%;
     margin: 0 30px;
 
     .cell {
-        width: 220px;
+        width: 350px;
         padding: 10px;
         float: left;
 
         img {
             max-width: 100%;
-            text-align: center;
         }
 
         .descriptionWrapper {
@@ -238,32 +243,23 @@ a:HOVER {
     .dot {
         display: inline-block;
         margin: 0 2px;
-        background: @lightgrey;
+        background: @white;
+        opacity: 0.5;
         width: 8px;
         height: 8px;
         .rounded(4px);
         cursor: pointer;
 
         &.active {
-            background: @black;
+            opacity: 1;
         }
     }
-}
-
-.closeSlideshow {
-    position: absolute;
-    top: 2%;
-    right: 50px;
-    cursor: pointer;
-    font-size: 24px;
-    font-weight: bold;
-    color: @darkgrey;
 }
 
 .containerDetail .description {
     position: absolute;
     font-weight: bold;
-    color: #888;
+    color: @white;
     left: 54px;
     width: 320px;
     top: 0;
@@ -303,4 +299,152 @@ a:HOVER {
 
 .marginBottom {
     height: 70px;
+}
+
+#navigationMainResp {
+    position: relative;
+    display: none;
+    min-height: 57px;
+    height: auto !important;
+    height: 57px;
+    z-index: 11;
+
+    .headWrapper {
+        position: relative;
+        height: 57px;
+    }
+
+    .logo {
+        position: absolute;
+        left: 15px;
+        top: 10px;
+        z-index: 100;
+
+        a {
+            font-size: 26px;
+            font-weight: @fontBold;
+            color: @white;
+        }
+    }
+
+    .head {
+        position: absolute;
+        right: 15px;
+        width: 26px;
+        top: 20px;
+        cursor: pointer;
+
+        .icon-balken {
+            width: 100%;
+            background: @white;
+            height: 2px;
+            margin-bottom: 6px;
+        }
+    }
+
+    .list {
+        display: none;
+        background: #444;
+
+        ul {
+            margin: 0;
+            padding-left: 0;
+            text-align: left;
+            list-style-type: none;
+            padding-bottom: 10px;
+            padding-top: 10px;
+
+            li {
+                margin-bottom: 4px;
+                text-align: center;
+
+                a {
+                    color: @white;
+                    text-transform: uppercase;
+
+                    &.active {
+                        font-weight: @fontBold;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media ( max-width: 845px ) {
+    html, body {
+        min-height: 100%;
+    }
+
+    #header {
+        position: static;
+    }
+
+    .container {
+        padding-top: 15px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    
+    #navigationMain, #navigationService {
+        display: none;
+    }
+
+    #navigationMainResp {
+        display: block;
+    }
+
+    #header {
+        #logo {
+            display: none;
+        }
+    }
+
+    #textContentContainer {
+        display: none !important;
+    }
+
+    .mCSB_inside > .mCSB_container {
+        margin-right: 0;
+    }
+
+    .containerMasonry {
+        .cell {
+            width: 100%;
+            padding: 0;
+            margin-bottom: 15px;
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .containerDetail {
+        height: auto;
+        padding-bottom: 15px;
+
+        .description {
+            position: static;
+            width: auto;
+            padding: 0;
+        }
+
+        .imgBig {
+            height: auto;
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .rightArrow, .leftArrow {
+            top: auto;
+            bottom: 0px;
+        }
+
+        .imgNav {
+            position: static;
+        }
+    }
 }
