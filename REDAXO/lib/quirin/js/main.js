@@ -53,23 +53,30 @@ function setHeightImgBig() {
     var $rightArrow = $('.rightArrow');
     var $leftArrow = $('.leftArrow');
     var height = $(window).height();
+    var $containerDetail = $('.containerDetail');
+    var $description = $containerDetail.children('.description');
+    var $imgNav = $containerDetail.children('.imgNav');
+
     if($(window).width() <= 845) {
         height-= $('#header').outerHeight();
-        height-= parseInt($('.containerDetail').css('padding-top'));
-        height-= parseInt($('.containerDetail').css('padding-bottom'));
-        height-= 10;
-        $rightArrow.height(height);
-        $leftArrow.height(height);
+    }
+    height-= parseInt($containerDetail.css('padding-top'));
+    height-= parseInt($containerDetail.css('padding-bottom'));
+    height-= 10;
+    $rightArrow.height(height);
+    $leftArrow.height(height);
 
-        height-= $('.containerDetail .description').outerHeight();
-        height-= $('.containerDetail .imgNav').outerHeight();
-        $imgBig.height(height);
+    if($description.css('position') == 'static') {
+        height-= $description.outerHeight();
+        height-= parseInt($description.css('padding-top'));
+        height-= parseInt($description.css('padding-bottom'));
     }
-    else {
-        $imgBig.css('height', '100%');
-        $rightArrow.css('height', '100%');
-        $leftArrow.css('height', '100%');
+    if($imgNav.css('position') == 'static') {
+        height-= $imgNav.outerHeight();
+        height-= parseInt($imgNav.css('padding-top'));
+        height-= parseInt($imgNav.css('padding-bottom'));
     }
+    $imgBig.height(height);
 }
 
 function toggleNavigationResp() {

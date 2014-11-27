@@ -16,25 +16,33 @@ REX_TEMPLATE[5]
     ?>
 
     <?php if($serie) { ?>
-    <div class="rightArrow">
-    	<div class="arrowContent">
-    		<img src="files/pfeil_1.png" />
-    	</div>
-    </div>
-    <div class="leftArrow">
-    	<div class="arrowContent">
-    		<img src="files/pfeil_2.png" />
-    	</div>
-    </div>
+        <div class="rightArrow">
+            <div class="arrowContent">
+                <img src="files/pfeil_1.png" />
+            </div>
+        </div>
+        <div class="leftArrow">
+            <div class="arrowContent">
+                <img src="files/pfeil_2.png" />
+            </div>
+        </div>
     <?php } ?>
 
     <?php if($textile) { ?>
-    <div class="description">
-        <?php echo $textile; ?>
-    </div>
+        <div class="description">
+            <?php echo $textile; ?>
+
+            <div class="close hidden-lg" onclick="history.back();">
+                X
+            </div>
+        </div>
     <?php } ?>
 
     <div class="imgBig">
+        <div class="close visible-lg" onclick="history.back();">
+            X
+        </div>
+
         <?php
         $imgArr = explode('.', $imgBig);
         $imgBigId = $imgArr[0];
@@ -46,7 +54,7 @@ REX_TEMPLATE[5]
             $imgId = "media".$k;
             ?>
             <img id="<?php echo $imgId; ?>" src="index.php?rex_img_type=previewBig&rex_img_file=<?php echo $img; ?>" />
-            <?php
+        <?php
         } ?>
     </div>
 
