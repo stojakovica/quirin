@@ -60,11 +60,11 @@ function setHeightImgBig() {
     if($(window).width() <= 845) {
         height-= $('#header').outerHeight();
     }
+    $rightArrow.height(height);
+    $leftArrow.height(height);
     height-= parseInt($containerDetail.css('padding-top'));
     height-= parseInt($containerDetail.css('padding-bottom'));
     height-= 10;
-    $rightArrow.height(height);
-    $leftArrow.height(height);
 
     if($description.css('position') == 'static') {
         height-= $description.outerHeight();
