@@ -83,7 +83,6 @@ REX_TEMPLATE[5]
             <div class="descriptionWrapper">
                 <div class="description">
                     <h2><?php echo $title; ?></h2>
-                    <?php echo $mediaDesc; ?>
                 </div>
             </div>
         </div>

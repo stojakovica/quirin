@@ -35,13 +35,16 @@ $(function() {
     /* Detail - Change image */
     $('.leftArrow .arrowContent img').click(function() {
         changeImgDetail("", "left");
+        changeImgDetailDescription("", "left");
     });
     $('.rightArrow .arrowContent img').click(function() {
         changeImgDetail("", "right");
+        changeImgDetailDescription("", "right");
     });
     $('.imgNav .dot').click(function() {
         var filename = $(this).data("filename");
         changeImgDetail(filename, 0);
+        changeImgDetailDescription(filename, 0);
     });
 
     /* Navigation Responsive */
@@ -112,6 +115,35 @@ function changeImgDetail(filename, direction) {
         $nextImg.fadeIn("slow");
         $nextImg.addClass('active');
         setActiveImgNavDot();
+    });
+}
+
+function changeImgDetailDescription(filename, direction) {
+    $activeDesc = $('.description .active');
+    if(filename != "") {
+        $nextDesc = $('#desc_'+filename);
+    }
+    else {
+        switch (direction) {
+            case "left":
+                $nextDesc = $activeDesc.prev('.description .descriptionContent');
+                if($nextDesc.length == 0) {
+                    $nextDesc = $('.description .descriptionContent').last();
+                }
+                break;
+            case "right":
+                $nextDesc = $activeDesc.next('.description .descriptionContent');
+                if($nextDesc.length == 0) {
+                    $nextDesc = $('.description .descriptionContent').first();
+                }
+                break;
+        }
+    }
+
+    $activeDesc.fadeOut( "slow", function() {
+        $(this).removeClass('active');
+        $nextDesc.fadeIn("slow");
+        $nextDesc.addClass('active');
     });
 }
 

@@ -30,7 +30,29 @@ REX_TEMPLATE[5]
 
     <?php if($textile) { ?>
         <div class="description">
-            <?php echo $textile; ?>
+            <?php
+            $imgArr = explode('.', $imgBig);
+            $imgBigId = $imgArr[0];
+            ?>
+            <div id="desc_<?php echo $imgBigId; ?>" class="descriptionContent active">
+                <?php echo $textile; ?>
+            </div>
+
+            <?php foreach($serie as $k=>$img) {
+                $textileSerie = "";
+                $mediaSerie = OOMedia::getMediaByFileName($img);
+                if($mediaSerie->getDescription()) {
+                    $textileSerie = htmlspecialchars_decode($mediaSerie->getDescription());
+                    $textileSerie = str_replace("<br />","",$textileSerie);
+                    $textileSerie = rex_a79_textile($textileSerie);
+                    $textileSerie = str_replace("###","&#x20;",$textileSerie);
+                }
+                $descId = "desc_media".$k;
+                ?>
+                <div id="<?php echo $descId; ?>" class="descriptionContent">
+                    <?php echo $textileSerie; ?>
+                </div>
+            <?php } ?>
 
             <div class="close hidden-lg" onclick="history.back();">
                 X
