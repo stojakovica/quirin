@@ -1,3 +1,5 @@
+var showActiveDescription;
+
 $(function() {
     /* navigation text */
     $('#navigationService li a.text').click(getContent);
@@ -49,6 +51,30 @@ $(function() {
 
     /* Navigation Responsive */
     $('#navigationMainResp .head').click(toggleNavigationResp);
+
+    /* Show description on mousemove */
+    $(".containerDetail").mousemove(function() {
+        var activeDescription = $(".descriptionContent.active");
+        if($(window).width() > 1200) {
+            clearTimeout(showActiveDescription);
+            activeDescription.fadeIn();
+            showActiveDescription = setTimeout(function () {
+                activeDescription.fadeOut();
+            }, 2000);
+        }
+        else {
+            activeDescription.show();
+        }
+    }).mouseleave(function() {
+        clearTimeout(showActiveDescription);
+        var activeDescription = $(".descriptionContent.active");
+        if($(window).width() > 1200) {
+            activeDescription.fadeOut();
+        }
+        else {
+            activeDescription.show();
+        }
+    });
 });
 
 function setHeightImgBig() {
@@ -140,9 +166,8 @@ function changeImgDetailDescription(filename, direction) {
         }
     }
 
+    $activeDesc.removeClass('active');
     $activeDesc.fadeOut( "slow", function() {
-        $(this).removeClass('active');
-        $nextDesc.fadeIn("slow");
         $nextDesc.addClass('active');
     });
 }

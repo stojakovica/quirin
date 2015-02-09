@@ -1,9 +1,13 @@
 @white: #fff;
 @petrolium: #0f1b28;
 @petroliumLight: #65717f;
+@petroliumTransparent: rgba(15, 27, 40, 0.8);
 @green: #677372;
 
 @arial: Arial, sans-serif;
+@gudea: 'Gudea', sans-serif;
+@sourceSerifPro: 'Source Serif Pro', serif;
+@sourceSansPro: 'Source Sans Pro', sans-serif;
 
 @fontLight: 300;
 @fontNormal: 400;
@@ -17,9 +21,9 @@
 }
 
 * {
-    font-family: @arial;
+    font-family: @sourceSansPro;
     color: @white;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 html, body {
@@ -70,6 +74,7 @@ a:HOVER {
 
         a {
             font-size: 38px;
+            font-family: @gudea;
             font-weight: @fontBold;
             color: @white;
         }
@@ -87,8 +92,10 @@ a:HOVER {
             text-align: right;
 
             a {
-                text-transform: uppercase;
+                font-size: 16px;
+                text-transform: capitalize;
                 color: @petroliumLight;
+                font-family: @sourceSerifPro;
 
 	            &.active, &:hover {
 	                color: @white;
@@ -278,17 +285,16 @@ a:HOVER {
     font-weight: bold;
     color: @white;
     left: 54px;
-    width: 320px;
+    width: 100%;
     top: 0;
     padding-top: 100px;
     padding-bottom: 100px;
+    z-index: 10;
 
     .descriptionContent {
         display: none;
-
-        &.active {
-            display: block;
-        }
+        background: @petroliumTransparent;
+        padding: 5px;
     }
 
     p {
@@ -424,6 +430,10 @@ a:HOVER {
             width: auto;
             padding: 0;
             padding-bottom: 15px;
+
+            .active {
+                display: block;
+            }
 
             .close {
                 position: absolute;

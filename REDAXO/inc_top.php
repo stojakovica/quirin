@@ -21,7 +21,6 @@ if($_GET['cat']) {
     $activeFilterCat = $_GET['cat'];
     $activeFilterCat = substr($activeFilterCat, 6);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -39,100 +38,103 @@ if($_GET['cat']) {
     <link rel="stylesheet" href="<?php echo $libDir."/quirin/css/main.css"?>" />
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
     <script src="lib/vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="<?php echo $libDir."/quirin/js/jquery.masonry.min.js"; ?>"></script>
     <script src="<?php echo $libDir."/quirin/js/imagesloaded.pkgd.min.js"; ?>"></script>
     <script src="<?php echo $libDir."/quirin/js/jquery.mCustomScrollbar.js"; ?>"></script>
     <script src="<?php echo $libDir."/quirin/js/main.js"; ?>"></script>
+    <link href='http://fonts.googleapis.com/css?family=Gudea' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div id="header">
-        <div id="logo">
+<div id="header">
+    <div id="logo">
+        <a href="<?php echo $ssa->getUrl(); ?>">
+            QUIRIN LEPPERT
+        </a>
+    </div>
+
+    <ul id="navigationMain" class="clearfix">
+        <?php
+        $class = "";
+        if($isSSA) {
+            $class = "active";
+        }
+        ?>
+        <li><a href="<?php $ssa->getUrl(); ?>" class="filter <?php echo $class; ?>" data-filter-class="all">All</a></li>
+        <?php
+        foreach (OOCategory::getRootCategories(true) as $lev1) {
+            $class = "";
+            if ($lev1->getId() == $path1 || $lev1->getId() == $activeFilterCat) $class = "active";
+            ?>
+            <li><a href="<?php echo rex_getUrl($lev1->getId(), 0); ?>" class="filter <?php echo $class; ?>" data-filter-class="filter<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
+        <?php
+        }
+        ?>
+    </ul>
+
+    <ul id="navigationService" class="clearfix">
+        <?php
+        foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
+            $class = "";
+            if ($lev1->getId() == $path1) $class = "active";
+            ?>
+            <li class="<?php echo $class; ?>" ><a href="#" class="text" data-id="<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
+        <?php
+        }
+        ?>
+    </ul>
+
+    <div id="navigationMainResp">
+        <div class="logo">
             <a href="<?php echo $ssa->getUrl(); ?>">
                 QUIRIN LEPPERT
             </a>
         </div>
 
-        <ul id="navigationMain" class="clearfix">
-        	<?php
-            $class = "";
-        	if($isSSA) {
-	            $class = "active";
-			}
-			?>
-        	<li><a href="<?php $ssa->getUrl(); ?>" class="filter <?php echo $class; ?>" data-filter-class="all">All</a></li>
-	        <?php
-	        foreach (OOCategory::getRootCategories(true) as $lev1) {
-	            $class = "";
-	            if ($lev1->getId() == $path1 || $lev1->getId() == $activeFilterCat) $class = "active";
-	            ?>
-	            <li><a href="<?php echo rex_getUrl($lev1->getId(), 0); ?>" class="filter <?php echo $class; ?>" data-filter-class="filter<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
-	            <?php
-	        }
-	        ?>
-        </ul>
-
-        <ul id="navigationService" class="clearfix">
-	        <?php
-	        foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
-	            $class = "";
-	            if ($lev1->getId() == $path1) $class = "active";
-	            ?>
-	            <li class="<?php echo $class; ?>" ><a href="#" class="text" data-id="<?php echo $lev1->getId(); ?>"><?php echo $lev1->getName(); ?></a></li>
-	            <?php
-	        }
-	        ?>
-        </ul>
-
-        <div id="navigationMainResp">
-            <div class="logo">
-                <a href="<?php echo $ssa->getUrl(); ?>">
-                    QUIRIN LEPPERT
-                </a>
-            </div>
-
-            <div class="headWrapper">
-                <div class="head">
-                    <div class="icon-balken"></div>
-                    <div class="icon-balken"></div>
-                    <div class="icon-balken"></div>
-                </div>
-            </div>
-            <div class="list">
-                <ul id="navigationResponsive">
-                    <?php
-                    $class = "";
-                    if($isSSA) {
-                        $class = "active";
-                    }
-                    /* Navigation Main */
-                    ?>
-                    <li><a href="<?php $ssa->getUrl(); ?>" class="<?php echo $class; ?>" data-filter-class="all">All</a></li>
-                    <?php
-                    foreach (OOCategory::getRootCategories(true) as $lev1) {
-                        $class = "";
-                        if ($lev1->getId() == $path1 || $lev1->getId() == $activeFilterCat) $class = "active";
-                        ?>
-                        <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
-                    <?php
-                    }
-
-                    /* Navigation Service */
-                    foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
-                        $class = "";
-                        if ($lev1->getId() == $path1) $class = "active";
-                        ?>
-                        <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
-                    <?php
-                    }
-                    ?>
-                </ul>
+        <div class="headWrapper">
+            <div class="head">
+                <div class="icon-balken"></div>
+                <div class="icon-balken"></div>
+                <div class="icon-balken"></div>
             </div>
         </div>
+        <div class="list">
+            <ul id="navigationResponsive">
+                <?php
+                $class = "";
+                if($isSSA) {
+                    $class = "active";
+                }
+                /* Navigation Main */
+                ?>
+                <li><a href="<?php $ssa->getUrl(); ?>" class="<?php echo $class; ?>" data-filter-class="all">All</a></li>
+                <?php
+                foreach (OOCategory::getRootCategories(true) as $lev1) {
+                    $class = "";
+                    if ($lev1->getId() == $path1 || $lev1->getId() == $activeFilterCat) $class = "active";
+                    ?>
+                    <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
+                <?php
+                }
 
-	    <div id="textContentContainer" class="hidden-xs">
-	    </div>
+                /* Navigation Service */
+                foreach (OOCategory::getCategoryById(5)->getChildren(true) as $lev1) {
+                    $class = "";
+                    if ($lev1->getId() == $path1) $class = "active";
+                    ?>
+                    <li><a href="<?php echo rex_getUrl($lev1->getId()); ?>" class="<?php echo $class; ?>"><?php echo $lev1->getName(); ?></a></li>
+                <?php
+                }
+                ?>
+            </ul>
+        </div>
     </div>
+
+    <div id="textContentContainer" class="hidden-xs">
+    </div>
+</div>
